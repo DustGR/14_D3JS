@@ -223,3 +223,8 @@ select {
     opacity: 1;
   }
 }
+/* End starter code */
+/*That was some very useful starter code!*/
+.invis  {
+  display : none;
+}

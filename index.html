@@ -35,9 +35,61 @@
                 <form>
                   <div class="form-group">
                     <ul class="list-group" id="filters">
-                      <li class="filter list-group-item">
-                        <label for="date">Enter a Date</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                      <li class="filter list-group-item" id='date-sort'>
+                          <label for="date">Enter a Date</label>
+                          <input class="form-control" id="date-text" type="text" placeholder="1/11/2011">
+                      </li>
+                      <!--City filter menu-->
+                      <li class="filter list-group-item invis" id='city-sort'><!--Non-datetime divisions will be toggled via buttons-->
+                          <label for="city">City:</label> 
+                          <div class="btn-group">
+                          <button class="btn btn-default btm-sm dropdown-toggle" id='city-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span id='city-button-text'>City</span> <span class="caret"></span>
+                          </button>
+                          <!--City dropdown populate here:-->
+                          <ul class="dropdown-menu" id="city-menu">
+                            <li class='city-select' id='city-none'><a>None</a></li>
+                          </ul>
+                          </div>
+                        <span id='city-select-print'></span>
+                      </li>
+                      <!--State filter menu-->
+                      <li class='filter list-group-item invis' id='state-sort'>
+                          <label for="state">State:</label> 
+                          <div class="btn-group">
+                          <button class="btn btn-default btm-sm dropdown-toggle" id='state-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span id='state-button-text'>State</span> <span class="caret"></span>
+                          </button>
+                          <!--State dropdown populate here:-->
+                          <ul class="dropdown-menu" id="state-menu">
+                            <li class='state-select' id='state-none'><a>None</a></li>
+                          </ul>
+                          </div>
+                      </li>
+                      <!--Country filter menu-->
+                      <li class='filter list-group-item invis' id='state-sort'>
+                          <label for="country">Country:</label> 
+                          <div class="btn-group">
+                          <button class="btn btn-default btm-sm dropdown-toggle" id='country-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span id='country-button-text'>Country</span> <span class="caret"></span>
+                          </button>
+                          <!--Country dropdown populate here:-->
+                          <ul class="dropdown-menu" id="country-menu">
+                            <li class='country-select' id='country-none'><a>None</a></li>
+                          </ul>
+                          </div>
+                      <!--Shape filter menu-->
+                      <li class='filter list-group-item shape-sort invis'>
+                          <label for="shape" class='shape-sort'>Shape:</label> 
+                          <div class="btn-group">
+                          <button class="btn btn-default btm-sm dropdown-toggle shape-sort" id='shape-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span id='shape-button-text'>Shape</span> <span class="caret"></span>
+                          </button>
+                          <!--Shape dropdown populate here:-->
+                          <ul class="dropdown-menu" id="shape-menu">
+                            <li class='shape-select' id='shape-none'><a>None</a></li>
+                          </ul>
+                          </div>
                       </li>
                     </ul>
                   </div>
@@ -52,11 +104,11 @@
             <table id="ufo-table" class="table table-striped">
               <thead>
                 <tr>
-                  <th class="table-head">Date</th>
-                  <th class="table-head">City</th>
-                  <th class="table-head">State</th>
-                  <th class="table-head">Country</th>
-                  <th class="table-head">Shape</th>
+                  <th class="table-head"><a class="btn btn-default toggler" role="button" id='date-toggle'>Date</a></th>
+                  <th class="table-head"><a class="btn btn-default toggler" role="button" id='city-toggle'>City</a></th>
+                  <th class="table-head"><a class="btn btn-default toggler" role="button" id='state-toggle'>State</a></th>
+                  <th class="table-head"><a class="btn btn-default toggler" role="button" id='country-toggle'>Country</a></th>
+                  <th class="table-head"><a class="btn btn-default toggler" role="button" id='shape-toggle'>Shape</a></th>
                   <th class="table-head">Duration</th>
                   <th class="table-head">Comments</th>
                 </tr>
@@ -71,6 +123,8 @@
       <span class="bottom">UFO Sightings</span>
     </footer>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
   <script src="static/js/data.js"></script>
   <script src="static/js/app.js"></script>
