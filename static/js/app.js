@@ -4,11 +4,11 @@ var tableData = data;
 // YOUR CODE HERE!
 //An object to store the filter settings
 var filter = {
-    date : "",
-    city : "",
-    state : "",
-    country : "",
-    shape: "",
+    datetime : "none",
+    city : "none",
+    state : "none",
+    country : "none",
+    shape: "none",
 }
 
 //An object to store what items go in each dropdown menu
@@ -36,47 +36,24 @@ Object.keys(menuItems).forEach(k=>{
         menuItems[k] = menuItems[k].map(newVal => newVal.toUpperCase())
     }
     else { //Cities, Countries get first letter capitalized
-        menuItems[k] = menuItems[k].map(newVal => {
-        let valueWords = newVal.split(" "); //splits words into arrays
-        valueWords = valueWords.map(word=> 
+        menuItems[k] = menuItems[k].map(newVal => (
+        newVal.split(" ").map(word=> 
             (word.slice(0,1).toUpperCase() + word.slice(1))) //capitalizes the first letter
             .join(" ")
-        console.log(valueWords)
-        })
+            //Does not work when the word starts with punctuation
+        ))
     }
 })
-//Note that we will need to .toLowerCase everything when we use the .filter() later - this cleaning
-//was just to make the UI prettier without having to run this every time.
-//Cleaner data would save this, but I don't want to touch the UFO data table.
+//Note that we will need to .toLowerCase everything when we use the .filter() later
 
 // @@TODO: make this into a function and rework the filter into a new country-state-city hierarchy
-//Actually populate dropdowns
+//Populate dropdowns
 Object.entries(menuItems).forEach(k=> { //Runs for each key (city, state, country, shape)
     var currentMenu = d3.select("#" + k[0] + "-menu"); //Selects the dropdown for the current menu
     k[1].forEach(item=> { //within the current key/filter category, appends a list item for each value
         currentMenu.append("li").attr("class", k[0] + '-select').attr("id",k[0] + "-" + item).append("a").text(item) //Adds new list item with id 
     })
 })
-
-// Selecting a dropdown item populates the filter
-d3.selectAll(".dropdown-menu>li").on("click", function() {
-    let selection = d3.select(this).attr("id").split("-")[1];
-    let category = d3.select(this).attr("id").split("-")[0];
-    filter[category] = selection;
-    updateButtons()
-})
-
-// Prevent reloading the page when form items are used
-d3.select("#filter-form").on("submit", function() {
-    d3.event.preventDefault(); 
-    }
-)
-
-//Update filter when date field is changed
-d3.select("#date-text").on("change", function() {
-    filter['date'] = d3.select(this).property("value")
-    }
-);
 
 //Function for updating dropdown menu button text with current filter settings
 function updateButtons() {
@@ -92,6 +69,28 @@ function updateButtons() {
         }
     )
 }
+
+// Selecting a dropdown item populates the filter
+d3.selectAll(".dropdown-menu>li").on("click", function() {
+    let selection = d3.select(this).attr("id").split("-")[1];
+    let category = d3.select(this).attr("id").split("-")[0];
+    filter[category] = selection;
+    updateButtons();
+})
+
+// Prevent reloading the page when form items are used
+d3.select("#filter-form").on("submit", function() {
+    d3.event.preventDefault(); 
+    }
+)
+
+//Update filter when date field is changed
+d3.select("#date-text").on("change", function() {
+    filter['datetime'] = d3.select(this).property("value")
+    }
+);
+
+
 
 // ------ Filter UI visibility toggling ------ //
 
@@ -114,24 +113,40 @@ d3.selectAll(".toggler").on("click", function() {//causes buttons to toggle filt
 })
 
 
-// ------ Filtering ------ //
+// ------ Filter Function ------ //
+function checkFilters(encounter) {
+    let result = true
+    Object.entries(filter).forEach(f=>{
+        let fKey = f[0].toLowerCase();
+        let fValue = f[1].toLowerCase();
 
+        //For each key in filter, if a value in the data doesn't match and the filter 
+        //isn't none, return false.
+        if ((fValue !== "none") && (encounter[fKey] !== fValue)) {
+            result = false
+        }
+    })
+    return result;
+}
 
 
 // ------ Populate Table ------ //
+//Function to populate table
+function populateTable() {
+    var table = d3.select("#ufo-table");
+    d3.selectAll(".table-body").remove() //clears the table body before repopulating
+    let filterData = data.filter(checkFilters);
+    filterData.forEach(encounter =>{
+        var row = table.append("tr").attr("class", "table-body");
+        Object.values(encounter).forEach(dat => {
+            row.append("td").text(dat)
+        })
+    })
+}
+//Re-populate the table when the filter table function gets pushed
+d3.select("#filter-btn").on("click", c=>{
+    populateTable()}
+)
 
-// function populateTable(filters) {
-//     var table = d3.select("#ufo-table");
-//     if(filters){
-//         var tableData = data.filter(runFilters(filters));
-//         }
-//     else{
-//         var tableData = data;
-//     }
-//     Object.entries("data").forEach(entry =>
-//         {
-//         if(filters){
-            
-//             }
-//         })
-// }
+//Populate the table when the page loads
+populateTable() 
