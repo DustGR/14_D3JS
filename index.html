@@ -32,19 +32,19 @@
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
               <div class="panel-body">
-                <form>
+                <form id="filter-form">
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item" id='date-sort'>
                           <label for="date">Enter a Date</label>
-                          <input class="form-control" id="date-text" type="text" placeholder="1/11/2011">
+                          <input class="form-control" id="date-text" type="text" placeholder="1/11/2011" onsubmit='return false'>
                       </li>
                       <!--City filter menu-->
                       <li class="filter list-group-item invis" id='city-sort'><!--Non-datetime divisions will be toggled via buttons-->
                           <label for="city">City:</label> 
                           <div class="btn-group">
-                          <button class="btn btn-default btm-sm dropdown-toggle" id='city-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id='city-button-text'>City</span> <span class="caret"></span>
+                          <button class="btn btn-default btm-sm dropdown-toggle filter-dropdown" id='city-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class='button-text' id='city-button-text'>City</span> <span class="caret"></span>
                           </button>
                           <!--City dropdown populate here:-->
                           <ul class="dropdown-menu" id="city-menu">
@@ -57,8 +57,8 @@
                       <li class='filter list-group-item invis' id='state-sort'>
                           <label for="state">State:</label> 
                           <div class="btn-group">
-                          <button class="btn btn-default btm-sm dropdown-toggle" id='state-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span id='state-button-text'>State</span> <span class="caret"></span>
+                          <button class="btn btn-default btm-sm dropdown-toggle filter-dropdown" id='state-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class='button-text' id='state-button-text'>State</span> <span class="caret"></span>
                           </button>
                           <!--State dropdown populate here:-->
                           <ul class="dropdown-menu" id="state-menu">
@@ -67,11 +67,11 @@
                           </div>
                       </li>
                       <!--Country filter menu-->
-                      <li class='filter list-group-item invis' id='state-sort'>
+                      <li class='filter list-group-item invis' id='country-sort'>
                           <label for="country">Country:</label> 
                           <div class="btn-group">
-                          <button class="btn btn-default btm-sm dropdown-toggle" id='country-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span id='country-button-text'>Country</span> <span class="caret"></span>
+                          <button class="btn btn-default btm-sm dropdown-toggle filter-dropdown" id='country-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class='button-text' id='country-button-text'>Country</span> <span class="caret"></span>
                           </button>
                           <!--Country dropdown populate here:-->
                           <ul class="dropdown-menu" id="country-menu">
@@ -79,11 +79,11 @@
                           </ul>
                           </div>
                       <!--Shape filter menu-->
-                      <li class='filter list-group-item shape-sort invis'>
-                          <label for="shape" class='shape-sort'>Shape:</label> 
+                      <li class='filter list-group-item invis' id='shape-sort'>
+                          <label for="shape">Shape:</label> 
                           <div class="btn-group">
-                          <button class="btn btn-default btm-sm dropdown-toggle shape-sort" id='shape-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span id='shape-button-text'>Shape</span> <span class="caret"></span>
+                          <button class="btn btn-default btm-sm dropdown-toggle filter-dropdown" id='shape-dropdown' type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span class='button-text' id='shape-button-text'>Shape</span> <span class="caret"></span>
                           </button>
                           <!--Shape dropdown populate here:-->
                           <ul class="dropdown-menu" id="shape-menu">
